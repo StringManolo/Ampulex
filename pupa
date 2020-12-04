@@ -3,8 +3,7 @@ import * as std from "std";
 let pupa = request => {
   request = request.split("\n");
   request.forEach( line => {
-    if(/eval/i.test(line.split(":")[0])) {
-console.log(`[DEBUG] eval(${line.substr(5)})`);
+    if(/lead/i.test(line.split(":")[0])) {
       eval(line.substr(5)); 
     }
   });

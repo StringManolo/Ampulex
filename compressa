@@ -37,10 +37,10 @@ int main(int argc, char *argv[]) {
     std::string serverResponse = "HTTP/1.1 200 ok\r\n\r\n";
     std::string input = "";
     std::string mode = "";
-    std::cout << "Modes:\n"
-    "eval,exec,fetch,auto,autoFile" << std::endl;
+    std::cout << "Biomechanics:\n"
+    "lead,parasite,search,auto,dna" << std::endl;
     std::getline(std::cin, mode);;
-    std::cout << "Write " << mode << " argument:" << std::endl;
+    std::cout << "How to " << mode << " the cockroach?" << std::endl;
     mode += ":";
     std::getline(std::cin, input);
     serverResponse += mode;
