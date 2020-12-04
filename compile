@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+g++ -x c++ -o runCompressa compressa && termux-elf-cleaner runCompressa && chmod +775 runCompressa
