@@ -6,7 +6,7 @@ import pupa from "./pupa";
 let hole = burrow();
 
 let tunnel = callback => {
-  let aux = std.urlGet(hole.address + ":" + hole.port);
+  let aux = std.urlGet(hole.address + ":" + hole.port + "/crrr");
   aux ? callback(aux) : os.setTimeout(tunnel, 10000); 
 };
 

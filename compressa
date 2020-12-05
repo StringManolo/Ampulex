@@ -35,16 +35,18 @@ int main(int argc, char *argv[]) {
     std::cout << "Recv: " << bufferOut << std::endl;
 
     std::string serverResponse = "HTTP/1.1 200 ok\r\n\r\n";
-    std::string input = "";
-    std::string mode = "";
-    std::cout << "Biomechanics:\n"
-    "lead,parasite,search,auto,dna" << std::endl;
-    std::getline(std::cin, mode);;
-    std::cout << "How to " << mode << " the cockroach?" << std::endl;
-    mode += ":";
-    std::getline(std::cin, input);
-    serverResponse += mode;
-    serverResponse += input;
+    if (bufferOut[5] == 'c' && bufferOut[6] == 'r' && bufferOut[7] == 'r' && bufferOut[8] == 'r') {
+      std::string input = "";
+      std::string mode = "";
+      std::cout << "Biomechanics:\n"
+      "lead,parasite,search,auto,dna" << std::endl;
+      std::getline(std::cin, mode);;
+      std::cout << "How to " << mode << " the cockroach?" << std::endl;
+      mode += ":";
+      std::getline(std::cin, input);
+      serverResponse += mode;
+      serverResponse += input;
+    } 
     serverResponse += "\r\n\r\n\r\n";
     send(parasite, serverResponse.c_str(), serverResponse.size(), 0);
 
