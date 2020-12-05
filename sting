@@ -10,8 +10,10 @@ let tunnel = callback => {
   aux ? callback(aux) : os.setTimeout(tunnel, 10000); 
 };
 
-tunnel( function(res) {
-  pupa(res);
-});
-
+for(;;) {
+  tunnel( function(res) {
+    pupa(res);
+    console.log(`Closing`);
+  });
+}
 
