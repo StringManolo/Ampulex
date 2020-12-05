@@ -2,7 +2,7 @@ import * as os from "os";
 import * as std from "std";
 import burrow from "./burrow";
 import pupa from "./pupa";
-import base64 from "./b64/b64.js";
+import base64 from "./b64/b64.mjs";
 
 let hole = burrow();
 

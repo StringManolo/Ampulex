@@ -1,5 +1,4 @@
 let encodeB64 = data => {
-  console.log(`Encoding:${data}`);
   const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
   let dataBin = "";
   for (let i in data) {
@@ -34,7 +33,6 @@ let encodeB64 = data => {
 
 
 let decodeB64 = data => {
-  console.log(`Decoding:${data}`);
   const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
   
   const paddingChars = (data.match(/=/g) || []).length;
@@ -64,10 +62,13 @@ let decodeB64 = data => {
   dataBin = dataBin.match(/.{1,8}/g);
   
   let end = "";
-  for (let i in dataBin) {
-    end += String.fromCharCode(parseInt(dataBin[i], 2));
-  }
 
+  for (let i in dataBin) {
+    if (+dataBin[i]) {
+      end += String.fromCharCode(parseInt(dataBin[i], 2));
+    }
+  }
+  
   return end;
 };
 
