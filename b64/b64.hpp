@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <cstdint>
 
+/* https://vorbrodt.blog/2019/03/23/base64-encoding/ */
+
 namespace base64
 {
 	inline static const char kEncodeLookup[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";

