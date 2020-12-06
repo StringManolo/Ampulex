@@ -36,32 +36,34 @@ int main(int argc, char *argv[]) {
     std::string bufferOut (buffer.begin(), buffer.end());
     std::cout << "Recv: " << bufferOut << std::endl;
 
-    std::vector<std::string> pathHolder = {};;
-    pathHolder = split(bufferOut, " ");
-    std::string prepath = pathHolder[1];
-    pathHolder = split(prepath, "base64:");
-    std::string path = base64_decode(pathHolder[1]);
-   
-    std::cout << "Path:";
-    for(int i = 0; i < path.size(); ++i) {
-      std::cout << path[i];
+    if (bufferOut.size() > 10) {
+      std::vector<std::string> pathHolder = {};
+      pathHolder = split(bufferOut, " ");
+      std::string prepath = pathHolder[1];
+      pathHolder = split(prepath, "base64:");
+      if (pathHolder.size() > 1) {
+        auto path = base64::decode(pathHolder[1]);
+        std::cout << "Path:";
+        for(int i = 0; i < path.size(); ++i) {
+          std::cout << path[i];
+        }
+      
+      std::cout << std::endl;
+      }
     }
 
-    std::cout << std::endl;
-
-
     std::string serverResponse = "HTTP/1.1 200 ok\r\n\r\n";
-    if (bufferOut[5] == 'c' && bufferOut[6] == 'r' && bufferOut[7] == 'r' && bufferOut[8] == 'r') {
+    if (bufferOut.size() > 7 && bufferOut[5] == 'c' && bufferOut[6] == 'r' && bufferOut[7] == 'r' && bufferOut[8] == 'r') {
       std::string input = "";
       std::string mode = "";
       std::cout << "Biomechanics:\n"
       "lead,parasite,search,auto,dna" << std::endl;
-      std::getline(std::cin, mode);;
+      std::getline(std::cin, mode);
       std::cout << "How to " << mode << " the cockroach?" << std::endl;
       mode += ":";
       
       if (mode == "auto:") {
-        mode = "lead:";
+        mode = "parasite:";
         std::cout << "1. tree.\n"
 	"2. download\n";
 
