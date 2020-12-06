@@ -59,7 +59,16 @@ int main(int argc, char *argv[]) {
       std::getline(std::cin, mode);;
       std::cout << "How to " << mode << " the cockroach?" << std::endl;
       mode += ":";
+      
+      if (mode == "auto:") {
+        mode = "lead:";
+        std::cout << "1. tree.\n"
+	"2. download\n";
+
+      }
       std::getline(std::cin, input);
+
+
       serverResponse += mode;
       serverResponse += input;
     } 

@@ -14,9 +14,9 @@ let pupa = request => {
       let aux = "";
       while ((r = prog.getline()) != null) {
         console.log(r);
-	aux += r;
+	aux += r + "\n";
       }
-      res = aux;
+      res = aux.substring(-1);
     }
   });
   return res;
