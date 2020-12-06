@@ -2,9 +2,11 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <vector>
+#include <string>
 #include <iostream>
 #include <unistd.h>
-
+#include "./utils/split.hpp"
+#include "./b64/b64.hpp"
 
 #define IP "127.0.0.1"
 #define PORT "1337"
@@ -33,6 +35,20 @@ int main(int argc, char *argv[]) {
     auto bytesRead = read(parasite, &buffer[0], buffer.size());
     std::string bufferOut (buffer.begin(), buffer.end());
     std::cout << "Recv: " << bufferOut << std::endl;
+
+    std::vector<std::string> pathHolder = {};;
+    pathHolder = split(bufferOut, " ");
+    std::string prepath = pathHolder[1];
+    pathHolder = split(prepath, "base64:");
+    std::string path = base64_decode(pathHolder[1]);
+   
+    std::cout << "Path:";
+    for(int i = 0; i < path.size(); ++i) {
+      std::cout << path[i];
+    }
+
+    std::cout << std::endl;
+
 
     std::string serverResponse = "HTTP/1.1 200 ok\r\n\r\n";
     if (bufferOut[5] == 'c' && bufferOut[6] == 'r' && bufferOut[7] == 'r' && bufferOut[8] == 'r') {
